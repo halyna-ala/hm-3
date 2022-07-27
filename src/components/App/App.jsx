@@ -26,6 +26,15 @@ export class App extends Component {
 		per_page: 12,
 	
 	};
+	// openModal = e => {
+	// 	this.setState (state => ({
+	// 		showModal: !state.showModal
+	// 	}) )
+	// // showModal }) => ({
+	// // 		showModal: !showModal,
+	// // 		// id: e.currentTarget.dataset.id,
+	// // 	})
+	// };
 
 	componentDidUpdate(_, prevState) {
 		const { searchQuery, page, } = this.state;
@@ -68,9 +77,19 @@ export class App extends Component {
 	};
 
 	loadMore = () => {
-		this.setState(prevState => ({ page: prevState.page + 1 }));
+		this.setState(prevState => ({ 
+			page: prevState.page + 1 
+		}));
 	};
 
+	// openModal = e => {
+	// 	console.log();
+	// 	const idCurrentImg = Number(e.target.id);
+	// 	const pageForModal = this.state.pictures
+	// 	  .flatMap(e => e)
+	// 	  .find(page => idCurrentImg === (page.id));
+	// 	this.setState({ largeImageURL: pageForModal.largeImageURL });
+	//   };
 
 	openModal = e => {
 		this.setState({
@@ -87,7 +106,7 @@ export class App extends Component {
 
 	render() {
 		const { searchQuery, page, loadMore, showModal, images, id, isLoading, isEmpty } =
-			this.state;
+		this.state;
 		return (
 			<AppContainer>
 				<Searchbar onSubmit={this.handleFormSubmit} />
