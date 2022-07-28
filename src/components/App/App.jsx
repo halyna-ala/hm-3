@@ -35,6 +35,7 @@ export class App extends Component {
 	// // 		// id: e.currentTarget.dataset.id,
 	// // 	})
 	// };
+	
 
 	componentDidUpdate(_, prevState) {
 		const { searchQuery, page, } = this.state;
@@ -98,6 +99,13 @@ export class App extends Component {
 		});
 	};
 
+	// findImage = () => {
+	// 	const { images, id } = this.props;
+	// 	if (id) {
+	// 		return images.find(image => image.id === id);
+	// 	}
+	// };
+
 	closeModal = e => {
 		this.setState({
 			showModal: false,
@@ -119,6 +127,7 @@ export class App extends Component {
 				{searchQuery ? <ImageGallery
 					openModal={this.openModal}
 					images={images}
+					
 				/> : <Notify >Введіть слово в пошуковий рядочок</Notify>}
 				
 				{loadMore && <Button onClick={this.loadMore} page={page} />}
