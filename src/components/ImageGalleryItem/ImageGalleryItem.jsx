@@ -2,23 +2,25 @@ import {
 	ImageGalleryItemStyle,
 	ImageGalleryImageStyle,
 } from './ImageGalleryItem.styled';
-import { PropTypes } from 'prop-types';
+import  {PropTypes}  from 'prop-types';
 
-const ImageGalleryItem = ({ image: { webformatURL, tags, id }, onClick }) => {
+const ImageGalleryItem = ({ src, alt, largeImageURL, openModal }) => {
 	return (
-		<ImageGalleryItemStyle onClick={onClick} data-id={id}>
-			<ImageGalleryImageStyle src={webformatURL} alt={tags} />
-		</ImageGalleryItemStyle>
+		<ImageGalleryItemStyle onClick={() => openModal(largeImageURL)}>
+			<ImageGalleryImageStyle src={src} alt={alt} />
+	
+					</ImageGalleryItemStyle>
 	);
 };
 
 ImageGalleryItem.propTypes = {
-	images: PropTypes.arrayOf(PropTypes.object).isRequired,
-  webformatURL: PropTypes.string.isRequired,
-  tags: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
+	src: PropTypes.string.isRequired,
+	alt: PropTypes.string.isRequired,
+	largeImageURL: PropTypes.string.isRequired,
+	openModal: PropTypes.func.isRequired,
+  };
+
+
 
 export default ImageGalleryItem;
 

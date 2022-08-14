@@ -20,12 +20,12 @@ class Modal extends Component {
 		}
 	};
 
-	findImage = () => {
-		const { images, id } = this.props;
-		if (id) {
-			return images.find(image => image.id === id);
-		}
-	};
+	// findImage = () => {
+	// 	const { images, id } = this.props;
+	// 	if (id) {
+	// 		return images.find(image => image.id === id);
+	// 	}
+	// };
 
 	handleBackdropClick = (e) => {
 		if (e.target === e.currentTarget) {
@@ -34,13 +34,12 @@ class Modal extends Component {
 	}
 
 	render() {
-		const findedImage = this.findImage();
+		// const findedImage = this.findImage();
 		return createPortal(
 			<Overlay onClick={this.handleBackdropClick}>
 				<ModalStyle>
 					<img
-						src={findedImage.largeImageURL}
-						alt={findedImage.tags}
+						src={this.props.largeImageURL} alt=""
 					/>
 				</ModalStyle>
 			</Overlay>,

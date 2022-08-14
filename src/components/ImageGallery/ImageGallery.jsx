@@ -4,20 +4,25 @@ import ImageGalleryItem from 'components/ImageGalleryItem';
 
 const ImageGallery =({images, openModal})=> (
 				<ImageGalleryStyle>
-					{images && images.map(image => {
-						return (
-							<ImageGalleryItem
-								onClick={openModal}
-								key={image.id}
-								image={image}
-							/>
-						);
-					})}
+					{images.map(({ id, webformatURL, tags, largeImageURL }) => (
+      <ImageGalleryItem
+        key={id}
+        src={webformatURL}
+        alt={tags}
+        largeImageURL={largeImageURL}
+        openModal={openModal}
+      />
+    ))}
 				</ImageGalleryStyle>
 			)
 
 ImageGallery.propTypes = {
 	images: PropTypes.object.isRequired,
+	id: PropTypes.number.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

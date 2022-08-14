@@ -1,16 +1,17 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContainer } from './App.styled';
-import { Notify } from "../../components/ImageGallery/ImageGallery.styled";
+// import { Notify } from "../../components/ImageGallery/ImageGallery.styled";
 import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Button from 'components/Button';
 import Modal from 'components/Modal';
-import ImageErrorView from 'components/ImageErrorView';
+// import ImageErrorView from 'components/ImageErrorView';
 import Loader from 'components/Loader';
 import imagesAPI from '../../services/images-api';
+import { animateScroll } from 'react-scroll';
 
 export class App extends Component {
 	state = {
@@ -45,7 +46,8 @@ export class App extends Component {
 	}
 
 	getPhotos = async (query, page) => {
-    if (!query) return;
+    if (!query) 
+	return;
     this.setState({ isLoading: true });
     try {
       const {
@@ -81,7 +83,16 @@ export class App extends Component {
 		this.setState(prevState => ({ 
 			page: prevState.page + 1 
 		}));
+		this.scrollOnMoreButton();
 	};
+
+	scrollOnMoreButton = () => {
+		animateScroll.scrollToBottom({
+		  duration: 1000,
+		  delay: 10,
+		  smooth: 'linear',
+		});
+	  };
 
 	// openModal = e => {
 	// 	console.log();
@@ -92,12 +103,13 @@ export class App extends Component {
 	// 	this.setState({ largeImageURL: pageForModal.largeImageURL });
 	//   };
 
-	openModal = e => {
+	openModal = largeImageURL => {
+		console.log(largeImageURL);
 		this.setState({
-			showModal: true,
-			id: e.currentTarget.dataset.id,
+		  showModal: true,
+		  largeImageURL: largeImageURL,
 		});
-	};
+	  };
 
 	// findImage = () => {
 	// 	const { images, id } = this.props;
@@ -106,37 +118,38 @@ export class App extends Component {
 	// 	}
 	// };
 
-	closeModal = e => {
+	closeModal = () => {
 		this.setState({
 			showModal: false,
 		});
 	};
 
 	render() {
-		const { searchQuery, page, loadMore, showModal, images, id, isLoading, isEmpty } =
+		const { images, isLoading, loadMore, page, showModal, largeImageURL } =
 		this.state;
 		return (
 			<AppContainer>
 				<Searchbar onSubmit={this.handleFormSubmit} />
 				<ToastContainer position="top-center" autoClose={3000} />
 				
-				{isLoading && <Loader />}
-				{isEmpty && <ImageErrorView
+				{isLoading ? ( <Loader />) : (<ImageGallery
+					openModal={this.openModal}
+					images={images}
+					
+				/>)}
+				{/* {isEmpty && <ImageErrorView
 					message={`Немає картинки з ім'ям '${this.state.searchQuery}'`}
 				/>}
 				{searchQuery ? <ImageGallery
 					openModal={this.openModal}
 					images={images}
 					
-				/> : <Notify >Введіть слово в пошуковий рядочок</Notify>}
+				/> : <Notify >Введіть слово в пошуковий рядочок</Notify>} */}
 				
-				{loadMore && <Button onClick={this.loadMore} page={page} />}
+				{loadMore && <Button onloadMore={this.onloadMore} page={page} />}
+				
 				{showModal && (
-					<Modal
-						images={images}
-						id={Number(id)}
-						onClose={this.closeModal}
-					/>
+					<Modal largeImageURL={largeImageURL} onClose={this.closeModal} />
 				)}
 			</AppContainer>
 		);

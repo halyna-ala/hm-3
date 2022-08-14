@@ -5,7 +5,11 @@ import { LoaderStyled } from "./Loader.styled";
 export default function Loader() {
 	return (
 		<LoaderStyled role='alert'>
-			<Hearts color="#0000" height={80} width={100} />
+			<Hearts strokeColor="#3f51b590"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="96"
+        visible={true} />
 			Завантажуємо...
 		</LoaderStyled>
 	)
