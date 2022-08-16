@@ -23,10 +23,13 @@ class SearchbarForm extends Component {
 
 		if (this.state.searchQuery.trim() === '') {
 			toast.warn('Введіть слово для пошуку');
-			return;
+			return 
+			// alert('Введіть слово для пошуку')
+			;
 		}
 		this.props.onSubmit(this.state.searchQuery);
-		this.setState({ searchQuery: '' });
+		
+		// this.setState({ searchQuery: '' });
 	};
 	render() {
 		return (

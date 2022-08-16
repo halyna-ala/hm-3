@@ -39,6 +39,8 @@ export class App extends Component {
 	
 
 	componentDidUpdate(_, prevState) {
+		console.log(prevState.page);
+		console.log(this.state.page);
 		const { searchQuery, page, } = this.state;
 		if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
 			this.getPhotos(searchQuery, page);
@@ -46,43 +48,51 @@ export class App extends Component {
 	}
 
 	getPhotos = async (query, page) => {
-    if (!query) 
-	return;
-    this.setState({ isLoading: true });
-    try {
-      const {
-        hits,
+		if (!query) 
+		return;
+		this.setState({ isLoading: true });
+		try {
+			const {
+				hits,
 				totalHits,
-      } = await imagesAPI(query, page);
-      console.log(hits, totalHits);
+			} = await imagesAPI(query, page);
+			console.log(hits, totalHits);
       if (hits.length === 0) {
-        this.setState({ isEmpty: true });
-      }
-      this.setState(prevState => ({
-        images: [...prevState.images, ...hits],
-        loadMore: this.state.page < Math.ceil(totalHits / this.state.per_page),
-      }));
-    } catch (error) {
-      this.setState({ error: error.message });
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-
-	handleFormSubmit = searchQuery => {
-		this.setState({
-			searchQuery: searchQuery,
-			page: 1,
-			loadMore: false,
-			images: [],
-			isEmpty: false,
-		});
-	};
-
-	loadMore = () => {
-		this.setState(prevState => ({ 
-			page: prevState.page + 1 
+		  this.setState({ isEmpty: true });
+		}
+		this.setState(prevState => ({
+			images: [...prevState.images, ...hits],
+			loadMore: this.state.page < Math.ceil(totalHits / this.state.per_page),
 		}));
+    } catch (error) {
+		this.setState({ error: error.message });
+    } finally {
+		this.setState({ isLoading: false });
+    };
+// 	if (this.state.searchQuery !== searchQuery) 
+// 	{
+// 		this.setState ({
+// 	searchQuery : searchQuery,
+// 	page: 1,
+// 	images: [],
+// 	isEmpty: false,
+// });
+};
+
+handleFormSubmit = searchQuery => {
+// if (this.state.searchQuery !== searchQuery) 
+// {
+	this.setState({
+		searchQuery: searchQuery,
+		page: 1,
+		loadMore: false,
+		images: [],
+		isEmpty: false,
+	});
+};
+	// }
+onloadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
 		this.scrollOnMoreButton();
 	};
 

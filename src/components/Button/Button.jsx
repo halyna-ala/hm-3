@@ -2,11 +2,13 @@ import { PropTypes } from 'prop-types';
 import {ButtonStyle } from './Button.styled';
 
 
-const Button = ({  onloadMore }) => (
-	<ButtonStyle type="button" onClick={onloadMore} >
+const Button = ({  onloadMore }) => {
+	return (
+		<ButtonStyle type="button" onClick={onloadMore} >
 		 Завантажити ще...
 	</ButtonStyle>
 );
+	};
 
 // Button.defaultProps = {
 // 	onClick: () => null,
@@ -16,7 +18,7 @@ const Button = ({  onloadMore }) => (
 Button.propType = {
 	onloadMore: PropTypes.func,
 	// children: PropTypes.node,
-
+	
 }
 
 export default Button;
