@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 import { ImageGalleryStyle} from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 
-const ImageGallery =({images, openModal})=> (
+export const ImageGallery =({images, openModal})=> (
 				<ImageGalleryStyle>
 					{images.map(({ id, webformatURL, tags, largeImageURL }) => (
       <ImageGalleryItem
